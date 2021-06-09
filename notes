@@ -1,0 +1,3 @@
+kills the donkey_sim processes, cleanup
+
+killall donkey_sim.x86_64
