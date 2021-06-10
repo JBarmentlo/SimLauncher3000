@@ -1,3 +1,5 @@
 from modules import PortHandler
+from modules import Server
 
-p = PortHandler()
+s = Server()
+s.server_loop()

@@ -6,11 +6,11 @@ class PortHandler():
     def __init__(self, start_port = net_config.start_port, nb_ports = sim_config.max_concurrent_sims):
         '''
             An object for handling ports.
-            self.status[9090] == True means the port 9090 is available.
+            self.status: True means available, False means in use.
 
-        Args:
-            start_port (int, optional): [description]. Defaults to 9090.
-            nb_ports ([type], optional): [description]. Defaults to simconfig.max_concurrent_sims.
+            Args:
+                start_port (int, optional): [description]. Defaults to 9090.
+                nb_ports ([type], optional): [description]. Defaults to simconfig.max_concurrent_sims.
         '''
         self.status = self.create_status(start_port, nb_ports)
 
@@ -26,11 +26,11 @@ class PortHandler():
         '''
             Returns True is port_no is available and within the allowed range
 
-        Args:
-            port_no ([int]): requested port number
+            Args:
+                port_no ([int]): requested port number
 
-        Returns:
-            [bool]: Availability
+            Returns:
+                [bool]: Availability
         '''
         try:
             return (self.status[port_no])

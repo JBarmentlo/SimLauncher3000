@@ -33,22 +33,33 @@ class SimHandler():
 
 
     def start_new_sim(self):
+        '''
+            Start a new Sim and update the porthandler to declare the used port.
+
+            Returns:
+                port (int): port number of the launched simulator if succesfull
+                None if no sim was launched
+        '''
         if (self.can_i_launch_a_new_sim()):
             port = self.porthandler.get_available_port()
             self.sanity_check(port)
             self.sims[port] = Sim(port)
+            self.porthandler.status[port] = False
+            return port
+        return None
 
 
     def kill_sim(self, port):
         '''
             Kills the donkeysim process with given port and remove Sim instance from self.sims
-
+            Updates the porthandler to declare the freed port.
             Args:
                 port ([int]): port number of Sim to kill.
         '''
         try:
             self.sims[port].kill()
             self.sims.pop(port)
+            self.porthandler.status[port] = True
         except Exception as e:
             SimHandlerLogger.error(f"Tried to kill sim that does not exist. Error:\n{e}")
 
@@ -83,5 +94,3 @@ class SimHandler():
             self.sims[port].ping()
         except:
             SimHandlerLogger.warning(f"Tried to ping unexisting Sim at port {port}")
-            
-
