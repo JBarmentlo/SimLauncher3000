@@ -1,10 +1,10 @@
-Mono path[0] = '/home/yup/Desktop/Patate/DonkeySimLinuxPorto/donkey_sim_Data/Managed'
-Mono config path = '/home/yup/Desktop/Patate/DonkeySimLinuxPorto/donkey_sim_Data/MonoBleedingEdge/etc'
+Mono path[0] = '/home/yup/Desktop/Patate/DonkeySimLinux/donkey_sim_Data/Managed'
+Mono config path = '/home/yup/Desktop/Patate/DonkeySimLinux/donkey_sim_Data/MonoBleedingEdge/etc'
 Display 0 'U2477WM 24"': 3840x2160 (primary device).
 Display 1 'PL2206W 22"': 1050x1680 (secondary device).
 Desktop is 3840 x 2160 @ 60 Hz
-Initialize engine version: 2019.3.0f1 (ffacea4b84e7)
-[Subsystems] Discovering subsystems at path /home/yup/Desktop/Patate/DonkeySimLinuxPorto/donkey_sim_Data/UnitySubsystems
+Initialize engine version: 2020.3.4f1 (0abb6314276a)
+[Subsystems] Discovering subsystems at path /home/yup/Desktop/Patate/DonkeySimLinux/donkey_sim_Data/UnitySubsystems
 GfxDevice: creating device client; threaded=1
 Renderer: NVIDIA GeForce GTX 1050 Ti/PCIe/SSE2
 Vendor:   NVIDIA Corporation
@@ -20,26 +20,36 @@ L_EXT_texture_lod_bias GL_EXT_texture_mirror_clamp GL_EXT_texture_object GL_EXT_
 blend_equation_advanced_coherent GL_NVX_blend_equation_advanced_multi_draw_buffers GL_NV_blend_minmax_factor GL_NV_blend_square GL_NV_clip_space_w_scaling GL_NV_command_list GL_NV_compute_program5 GL_NV_conditional_render GL_NV_conservative_raster GL_NV_conservative_raster_dilate GL_NV_conservative_raster_pre_snap_triangles GL_NV_copy_depth_to_color GL_NV_copy_image GL_NV_depth_buffer_float GL_NV_depth_clamp GL_NV_draw_texture GL_NV_draw_vulkan_image GL_NV_ES1_1_compatibility GL_NV_ES3_1_compatibility GL_NV_explicit_multisample GL_NV_feature_query GL_NV_fence GL_NV_fill_rectangle GL_NV_float_buffer GL_NV_fog_distance GL_NV_fragment_coverage_to_color GL_NV_fragment_program GL_NV_fragment_program_option GL_NV_fragment_program2 GL_NV_fragment_shader_interlock GL_NV_framebuffer_mixed_samples GL_NV_framebuffer_multisample_coverage GL_NV_geometry_shader4 GL_NV_geometry_shader_passthrough GL_NV_gpu_program4 GL_NV_internalformat_sample_query GL_NV_gpu_program4_1 GL_NV_gpu_program5 GL_NV_gpu_program5_mem_extended GL_
 NV_gpu_program_fp64 GL_NV_gpu_shader5 GL_NV_half_float GL_NV_light_max_exponent GL_NV_memory_attachment GL_NV_multisample_coverage GL_NV_multisample_filter_hint GL_NV_occlusion_query GL_NV_packed_depth_stencil GL_NV_parameter_buffer_object GL_NV_parameter_buffer_object2 GL_NV_path_rendering GL_NV_path_rendering_shared_edge GL_NV_pixel_data_range GL_NV_point_sprite GL_NV_primitive_restart GL_NV_query_resource GL_NV_query_resource_tag GL_NV_register_combiners GL_NV_register_combiners2 GL_NV_sample_locations GL_NV_sample_mask_override_coverage GL_NV_shader_atomic_counters GL_NV_shader_atomic_float GL_NV_shader_atomic_float64 GL_NV_shader_atomic_fp16_vector GL_NV_shader_atomic_int64 GL_NV_shader_buffer_load GL_NV_shader_storage_buffer_object GL_NV_shader_subgroup_partitioned GL_NV_stereo_view_rendering GL_NV_texgen_reflection GL_NV_texture_barrier GL_NV_texture_compression_vtc GL_NV_texture_env_combine4 GL_NV_texture_multisample GL_NV_texture_rectangle GL_NV_texture_rectangle_compressed GL_NV_texture_shader GL_N
 V_texture_shader2 GL_NV_texture_shader3 GL_NV_transform_feedback GL_NV_transform_feedback2 GL_NV_uniform_buffer_unified_memory GL_NV_vdpau_interop GL_NV_vdpau_interop2 GL_NV_vertex_array_range GL_NV_vertex_array_range2 GL_NV_vertex_attrib_integer_64bit GL_NV_vertex_buffer_unified_memory GL_NV_vertex_program GL_NV_vertex_program1_1 GL_NV_vertex_program2 GL_NV_vertex_program2_option GL_NV_vertex_program3 GL_NV_viewport_array2 GL_NV_viewport_swizzle GL_NVX_conditional_render GL_NV_gpu_multicast GL_NVX_progress_fence GL_NVX_gpu_memory_info GL_NVX_nvenc_interop GL_NV_shader_thread_group GL_NV_shader_thread_shuffle GL_KHR_blend_equation_advanced GL_KHR_blend_equation_advanced_coherent GL_OVR_multiview GL_OVR_multiview2 GL_SGIS_generate_mipmap GL_SGIS_texture_lod GL_SGIX_depth_texture GL_SGIX_shadow GL_SUN_slice_accum
-OPENGL LOG: Creating OpenGL 4.5 graphics device ; Context level  <OpenGL 4.5> ; Context handle 41738616
+OPENGL LOG: Creating OpenGL 4.5 graphics device ; Context level  <OpenGL 4.5> ; Context handle 28555048
 Begin MonoManager ReloadAssembly
-- Completed reload, in  0.050 seconds
+- Completed reload, in  0.089 seconds
 Default vsync count 0
 requesting resize 1920 x 1127
 resizing window to 1920 x 1127
 Desktop is 3840 x 2160 @ 60 Hz
-UnloadTime: 0.561940 ms
-SDSandbox Server starting. 
-(Filename: ./Runtime/Export/Debug/Debug.bindings.h Line: 35)
+UnloadTime: 0.616700 ms
+SDSandbox Server starting.
 
 FormatException: An invalid IP address was specified.
-  at System.Net.IPAddress.InternalParse (System.String ipString, System.Boolean tryParse) [0x00157] in <84a6f92a7818440db25762d40b5eb9dd>:0 
-  at System.Net.IPAddress.Parse (System.String ipString) [0x00000] in <84a6f92a7818440db25762d40b5eb9dd>:0 
-  at tk.TcpServer.Bind (System.String ip, System.Int32 port) [0x00000] in <94a5c91feb62419c993836fb0ca92178>:0 
-  at tk.TcpServer.Run (System.String ip, System.Int32 port) [0x00000] in <94a5c91feb62419c993836fb0ca92178>:0 
-  at SandboxServer.Start () [0x0005e] in <94a5c91feb62419c993836fb0ca92178>:0 
- 
-(Filename: <84a6f92a7818440db25762d40b5eb9dd> Line: 0)
+  at System.Net.IPAddress.InternalParse (System.String ipString, System.Boolean tryParse) [0x00157] in <3df7f9ca50404bbc8bd4e7b954e70293>:0 
+  at System.Net.IPAddress.Parse (System.String ipString) [0x00000] in <3df7f9ca50404bbc8bd4e7b954e70293>:0 
+  at tk.TcpServer.Bind (System.String ip, System.Int32 port) [0x00000] in <e724dd35bd9e449bbbb69b645caf55ef>:0 
+  at tk.TcpServer.Run (System.String ip, System.Int32 port) [0x00000] in <e724dd35bd9e449bbbb69b645caf55ef>:0 
+  at SandboxServer.Start () [0x0005e] in <e724dd35bd9e449bbbb69b645caf55ef>:0 
+
+SDSandbox Server starting.
+
+SocketException: Address already in use
+  at System.Net.Sockets.Socket.Bind (System.Net.EndPoint localEP) [0x00043] in <3df7f9ca50404bbc8bd4e7b954e70293>:0 
+  at tk.TcpServer.Bind (System.String ip, System.Int32 port) [0x00022] in <e724dd35bd9e449bbbb69b645caServer stopped.
+
+Waiting on threads to park on joinable thread list timed out.
+ in <e724dd35bd9e449bbbb69b645caf55ef>:0 
+  at SandboxServer.Start () [0x0005e] in <e724dd35bd9e449bbbb69b645caf55ef>:0 
 
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 7fca92ffe700 -> priority: 1 
-  Thread -> id: 7fca927fd700 -> priority: 1 
+  Thread -> id: 7f6404ca8700 -> priority: 1 
+  Thread -> id: 7f63e0e77700 -> priority: 1 
+Server stopped.
+
+Waiting on threads to park on joinable thread list timed out.
