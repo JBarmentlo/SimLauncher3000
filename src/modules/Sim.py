@@ -2,23 +2,25 @@ import subprocess
 import os
 import time
 import shlex
+from config import sim_config
+# TODO: Host option from net_config not used because not needed to avoid potential security hazard
 
 class Sim():
-    def __init__(self, port, time_till_kill = 600):
+    def __init__(self, port, time_till_timeout = sim_config.time_till_timeout):
         '''
             A Sim object starts and holds the donkeysim subprocess.
-            It must be pinged every time_till_kill seconds with self.keep_alive_ping() or self.is_timeout() will return True
+            It must be pinged every time_till_timeout seconds with self.keep_alive_ping() or self.is_timeout() will return True
 
             WARNING: IF THE PORT IS UNAVAILABLE NO ERROR IS THROWN AND A DONKEYSIM SUBPROCESS WILL START WITH UNKNOWN PORT
 
             Args:
                 port ([int]): port number the sim will listen to. Must be available (use the PortHandler class)
-                time_till_kill (int, optional): Time until timeout without pings. Defaults to 600.
+                time_till_timeout (int, optional): Time until timeout without pings. Defaults to sim_config.time_till_timeout.
         '''
         self.port = int(port)
         self.start_time = time.time()
         self.last_ping_time = time.time()
-        self.time_till_kill = time_till_kill
+        self.time_till_timeout = time_till_timeout
         self.process = self.start_sim_proc()
 
 
@@ -32,18 +34,18 @@ class Sim():
         return proc
 
 
-    def keep_alive_ping(self):
+    def ping(self):
         '''
-            The Sim instance must be pinged at least once every self.time_till_kill seconds to stay alive.
+            The Sim instance must be pinged at least once every self.time_till_timeout seconds to stay alive.
         '''
         self.last_ping_time = time.time()
 
     
     def is_timeout(self):
         '''
-            Checks if the process has been pinged to stay alive less that self.time_till_kill seconds ago
+            Checks if the process has been pinged to stay alive less that self.time_till_timeout seconds ago
         '''
-        if (time.time() - self.last_ping_time) > self.time_till_kill:
+        if (time.time() - self.last_ping_time) > self.time_till_timeout:
             return  False
         return True
 
@@ -56,6 +58,9 @@ class Sim():
 
 
     def kill_sim(self):
+        '''
+            Kill the donkeysim subprocess and set self.process to None.
+        '''
         self.process.kill()
         self.process = None
 

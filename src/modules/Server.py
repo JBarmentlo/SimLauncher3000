@@ -23,9 +23,9 @@ import time
 #                 conn.sendall(b"Sim open")
 #                 time.sleep(5)
 #                 proc1.kill()
-port_args = ["--port", str(9099), "--host", "localhost", "-logFile", "unitylog.txt"]
-proc1 = subprocess.Popen([os.environ["SIM_PATH"]] + port_args)
-proc1.kill()
+# port_args = ["--port", str(9099), "--host", "localhost", "-logFile", "unitylog.txt"]
+# proc1 = subprocess.Popen([os.environ["SIM_PATH"]] + port_args)
+# proc1.kill()
 
 
-class 
+class Server

@@ -1,9 +1,9 @@
-from config import simconfig
+from config import sim_config, net_config
 
 # TODO: check for port conflicts with PrivateAPI port
 
 class PortHandler():
-    def __init__(self, start_port = 9090, nb_ports = simconfig.max_concurrent_sims):
+    def __init__(self, start_port = net_config.start_port, nb_ports = sim_config.max_concurrent_sims):
         '''
             An object for handling ports.
             self.status[9090] == True means the port 9090 is available.
@@ -18,7 +18,7 @@ class PortHandler():
     def create_status(self, start_port, nb_ports):
         status = {}
         for i in range(nb_ports):
-            status[i] = True
+            status[start_port + i] = True
         return status
 
     
@@ -38,12 +38,20 @@ class PortHandler():
             return False
 
     
-    def get_port_no(self):
+    def get_available_port(self) -> int or None:
         '''
             Returns:
                 int: Available port, None if no port is available
         '''
-        for key, value in self.status:
+        for key, value in self.status.items():
             if (value):
                 return(key)
-        return(None)
+        return (None)
+
+
+    def number_of_available_ports(self):
+        i = 0
+        for value in self.status.values():
+            if (value):
+                i += 1
+        return i

@@ -1,1 +1,0 @@
-from .simconfig import simconfig
