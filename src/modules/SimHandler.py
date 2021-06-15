@@ -74,6 +74,7 @@ class SimHandler():
                 if (sim.is_timeout()):
                     sims_to_kill.append(port)
             for port in sims_to_kill:
+                print("idle sim to kill:", sims_to_kill)
                 self.kill_sim(port)
 
     

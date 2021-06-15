@@ -46,8 +46,8 @@ class Sim():
             Checks if the process has been pinged to stay alive less that self.time_till_timeout seconds ago
         '''
         if (time.time() - self.last_ping_time) > self.time_till_timeout:
-            return  False
-        return True
+            return True
+        return False
 
 
     def is_alive(self):
@@ -57,7 +57,7 @@ class Sim():
         return (self.process.poll() == None)
 
 
-    def kill_sim(self):
+    def kill(self):
         '''
             Kill the donkeysim subprocess and set self.process to None.
         '''

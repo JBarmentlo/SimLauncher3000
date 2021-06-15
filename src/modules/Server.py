@@ -5,7 +5,6 @@ import os
 from modules import SimHandler
 from config import net_config
 
-
 class Server():
     def __init__(self):
         self.simhandler = SimHandler()
@@ -16,62 +15,45 @@ class Server():
             Main server loop. Listens to port, launches sims, answers port numbers of sims.
         '''
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.settimeout(10)
             s.bind((net_config.host, net_config.server_port))
             s.listen()
-            i = 0
             while True:
-                time.sleep(1)
-                conn, addr = s.accept()
-                with conn:
-                    print('Connected by', addr)
-                    data = conn.recv(1024)
-                    data = data.decode("utf-8")
-                    sim_port = None
-                    reply = {}
-                    try:
-                        data = json.loads(data)
-                        reply = self.handle_request(data)
-                    except:
-                        pass
-                    conn.sendall(bytes(json.dumps(reply), encoding="utf-8"))
-                if (i % 10 == 0):
-                    self.simhandler.kill_idle_sims()
-                    self.simhandler.clean_dead_sims()
+                try:
+                    time.sleep(1)
+                    conn, addr = s.accept()
+                    with conn:
+                        print('Connected by', addr)
+                        data = conn.recv(1024)
+                        data = data.decode("utf-8")
+                        sim_port = None
+                        reply = {}
+                        try:
+                            data = json.loads(data)
+                            reply = self.handle_request(data)
+                        except:
+                            pass
+                        conn.sendall(bytes(json.dumps(reply), encoding="utf-8"))
+                except socket.timeout:
+                    pass
+                self.simhandler.kill_idle_sims()
+                self.simhandler.clean_dead_sims()
 
 
     def handle_request(self, data):
         if (data["pass"] != os.environ["PS"]):
             return {}
+            
         if (data["req"] == net_config.start_sim_request):
             sim_port = self.simhandler.start_new_sim()
             return {"sim_port" : sim_port}
+
         if (data["req"] == net_config.ping_request):
             self.simhandler.ping_sim(data["port"])
             return {"pinged_sim" : data["port"]}
 
-# Port to listen on (non-privileged ports are > 1023)
+        if (data["req"] == net_config.kill_request):
+            self.simhandler.kill_sim(data["port"])
+            return {"killed_sim" : data["port"]}
 
-# with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-#     s.bind((HOST, PORT))
-#     s.listen()
-#     while True:
-#         conn, addr = s.accept()
-#         with conn:
-#             print('Connected by', addr)
-#             while True:
-#                 data = conn.recv(1024)
-#                 if not data:
-#                     break
-#                 porto = int.from_bytes(data, byteorder='little')
-#                 print(porto)
-#                 port_args = ["--port", str(porto), "--host", "localhost", "-logFile", "unitylog.txt"]
-#                 proc1 = subprocess.Popen([os.environ["SIM_PATH"]] + port_args)
-#                 conn.sendall(b"Sim open")
-#                 time.sleep(5)
-#                 proc1.kill()
-
-
-# port_args = ["--port", str(9099), "--host", "localhost", "-logFile", "unitylog.txt"]
-# proc1 = subprocess.Popen([os.environ["SIM_PATH"]] + port_args)
-# proc1.kill()
 
