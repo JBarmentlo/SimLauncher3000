@@ -5,6 +5,7 @@ import os
 from modules import SimHandler
 from config import net_config
 import logging
+
 logging.root.setLevel(logging.DEBUG)
 ServerLogger = logging.getLogger("Server")
 ServerLogger.setLevel(logging.DEBUG)
