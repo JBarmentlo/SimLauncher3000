@@ -18,6 +18,7 @@ class Server():
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((net_config.host, net_config.server_port))
             s.listen()
+            i = 0
             while True:
                 time.sleep(1)
                 conn, addr = s.accept()
@@ -29,17 +30,24 @@ class Server():
                     reply = {}
                     try:
                         data = json.loads(data)
-                        if (data["pass"] != os.environ["PS"]):
-                            break
-                        if (data["req"] == net_config.start_sim_request):
-                            sim_port = self.simhandler.start_new_sim()
-                            reply = {"sim_port" : sim_port}
-                        if (data["req"] == net_config.ping_request):
-                            self.simhandler.ping_sim(data["port"])
-                            reply = {"pinged_sim" : data["port"]}
+                        reply = self.handle_request(data)
                     except:
                         pass
                     conn.sendall(bytes(json.dumps(reply), encoding="utf-8"))
+                if (i % 10 == 0):
+                    self.simhandler.kill_idle_sims()
+                    self.simhandler.clean_dead_sims()
+
+
+    def handle_request(self, data):
+        if (data["pass"] != os.environ["PS"]):
+            return {}
+        if (data["req"] == net_config.start_sim_request):
+            sim_port = self.simhandler.start_new_sim()
+            return {"sim_port" : sim_port}
+        if (data["req"] == net_config.ping_request):
+            self.simhandler.ping_sim(data["port"])
+            return {"pinged_sim" : data["port"]}
 
 # Port to listen on (non-privileged ports are > 1023)
 

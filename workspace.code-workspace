@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.autoComplete.extraPaths": [
+
+			"/home/yup/Desktop/Patate/SimLauncher3000/srcs/**",
+			"/home/yup/Desktop/Patate/SimLauncher3000/srcs/modules/*",
+			"srcs/modules/PortHandler.py"
+		],
+		"python.pythonPath": "/home/yup/Desktop/Patate/SimLauncher3000/venv/bin/python",
+		"python.analysis.extraPaths": [
+			"src/modules",
+			"src/utils"
+		],
+	}
+}
