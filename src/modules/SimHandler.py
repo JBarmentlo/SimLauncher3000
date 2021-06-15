@@ -2,8 +2,8 @@ from config import sim_config, net_config
 from modules import PortHandler, Sim
 import logging
 
-SimHandlerLogger = logging.getLogger("SimHandler Logger")
-SimHandlerLogger.setLevel(logging.WARNING)
+SimHandlerLogger = logging.getLogger("SimHandler ")
+SimHandlerLogger.setLevel(logging.DEBUG)
 
 
 class SimHandler():
@@ -17,6 +17,7 @@ class SimHandler():
         self.max_concurrent_sims = max_concurrent_sims
         self.porthandler = PortHandler(start_port = start_port, nb_ports=max_concurrent_sims)
         self.sims = {}
+        SimHandlerLogger.debug(f"Started Simhandler with {self.max_concurrent_sims =}")
 
     
     def  can_i_launch_a_new_sim(self):
@@ -40,12 +41,16 @@ class SimHandler():
                 port (int): port number of the launched simulator if succesfull
                 None if no sim was launched
         '''
+        SimHandlerLogger.debug(f"Trying to start new sim.")
         if (self.can_i_launch_a_new_sim()):
             port = self.porthandler.get_available_port()
             self.sanity_check(port)
             self.sims[port] = Sim(port)
             self.porthandler.status[port] = False
+            SimHandlerLogger.debug(f"Sim started with port : {port}")
             return port
+        else:
+            SimHandlerLogger.debug("No ports were available")
         return None
 
 
@@ -56,10 +61,13 @@ class SimHandler():
             Args:
                 port ([int]): port number of Sim to kill.
         '''
+        SimHandlerLogger.debug("Killing sim")
         try:
+            SimHandlerLogger.debug(f"Sim: {self.sims[port]} to be killed")
             self.sims[port].kill()
             self.sims.pop(port)
             self.porthandler.status[port] = True
+            SimHandlerLogger.debug("Successfully killed sim process")
         except Exception as e:
             SimHandlerLogger.error(f"Tried to kill sim that does not exist. Error:\n{e}")
 
@@ -68,13 +76,14 @@ class SimHandler():
         '''
             Kills all sims that timed out
         '''
+        SimHandlerLogger.debug(f"Checking for idle sims. {sim_config.kill_on_timeout =}")
         if (sim_config.kill_on_timeout):
             sims_to_kill = []
             for port, sim in self.sims.items():
                 if (sim.is_timeout()):
                     sims_to_kill.append(port)
             for port in sims_to_kill:
-                print("idle sim to kill:", sims_to_kill)
+                SimHandlerLogger.debug("idle sim to kill:", sims_to_kill)
                 self.kill_sim(port)
 
     
@@ -87,10 +96,12 @@ class SimHandler():
             if (not sim.is_alive()):
                 dead_sims.append(port)
         for port in dead_sims:
+            SimHandlerLogger.error("Dead sim processes (not killed by us): ", dead_sims)
             self.sims.pop(port)
 
 
     def ping_sim(self, port):
+        SimHandlerLogger.debug("Pinging sim {port}")
         try:
             self.sims[port].ping()
         except:

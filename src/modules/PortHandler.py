@@ -1,6 +1,10 @@
 from config import sim_config, net_config
-
+import logging
 # TODO: check for port conflicts with PrivateAPI port
+
+PortLogger = logging.getLogger("PortHandler ")
+PortLogger.setLevel(logging.DEBUG)
+
 
 class PortHandler():
     def __init__(self, start_port = net_config.start_port, nb_ports = sim_config.max_concurrent_sims):
@@ -13,6 +17,7 @@ class PortHandler():
                 nb_ports ([type], optional): [description]. Defaults to simconfig.max_concurrent_sims.
         '''
         self.status = self.create_status(start_port, nb_ports)
+        PortLogger.debug(f"Created PortHandler with status: {self.status} and start port: {start_port}")
 
 
     def create_status(self, start_port, nb_ports):
@@ -32,9 +37,11 @@ class PortHandler():
             Returns:
                 [bool]: Availability
         '''
+        PortLogger.debug(f"Checking availability for port: {port_no}")
         try:
             return (self.status[port_no])
-        except:
+        except Exception as e:
+            PortLogger.error("Error occured: {e}")
             return False
 
     

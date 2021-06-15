@@ -2,6 +2,7 @@ from config import net_config
 import socket
 import json
 import os
+import logging
 
 HOST = net_config.host  # The server's hostname or IP address
 PORT = net_config.server_port        # The port used by the server
